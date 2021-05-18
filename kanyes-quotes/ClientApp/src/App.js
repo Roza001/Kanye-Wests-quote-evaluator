@@ -1,20 +1,37 @@
-import React, { Component } from 'react';
-import { Route } from 'react-router';
-import { Layout } from './components/Layout';
-import { Home } from './components/Home';
-import { FetchData } from './components/FetchData';
-import { Counter } from './components/Counter';
+import logo from './logo.svg';
+import './App.css';
 
-export default class App extends Component {
-  displayName = App.name
+import React, { useState, useEffect } from 'react';
 
-  render() {
-    return (
-      <Layout>
-        <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <Route path='/fetchdata' component={FetchData} />
-      </Layout>
-    );
-  }
+function App() {
+    const [quote, setQuote] = useState('');
+
+    useEffect(() => {
+        fetch('https://api.kanye.rest')
+            .then(response => response.json())
+            .then(data => {
+                setQuote(data.quote);
+            });
+    }, []);
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+          </header>
+          <div>{quote}</div>
+    </div>
+  );
 }
+
+export default App;

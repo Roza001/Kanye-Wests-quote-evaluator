@@ -20,8 +20,38 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp - Copy\**" />
+    <Compile Remove="ClientApp\src\components\contact\**" />
+    <Compile Remove="ClientApp\src\components\projects\**" />
+    <Compile Remove="ClientApp\src\images\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp - Copy\**" />
+    <Content Remove="ClientApp\src\components\contact\**" />
+    <Content Remove="ClientApp\src\components\projects\**" />
+    <Content Remove="ClientApp\src\images\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="ClientApp - Copy\**" />
+    <EmbeddedResource Remove="ClientApp\src\components\contact\**" />
+    <EmbeddedResource Remove="ClientApp\src\components\projects\**" />
+    <EmbeddedResource Remove="ClientApp\src\images\**" />
+    <None Remove="ClientApp - Copy\**" />
+    <None Remove="ClientApp\src\components\contact\**" />
+    <None Remove="ClientApp\src\components\projects\**" />
+    <None Remove="ClientApp\src\images\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\src\components\CVPage.js" />
+    <None Remove="ClientApp\src\components\CVPage.js" />
+    <None Remove="ClientApp\src\components\Footer.js" />
+    <None Remove="ClientApp\src\components\Footer.js" />
+    <None Remove="ClientApp\src\components\Navbar.js" />
+    <None Remove="ClientApp\src\components\Navbar.js" />
+    <None Remove="ClientApp\src\components\Portfolio.js" />
+    <None Remove="ClientApp\src\components\Portfolio.js" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
