@@ -1,37 +1,41 @@
-import logo from './logo.svg';
 import './App.css';
+import getQuotes from './components/services/GetQuotes.js';
+import getPolarity from './components/services/GetPolarity.js';
 
 import React, { useState, useEffect } from 'react';
 
 function App() {
     const [quote, setQuote] = useState('');
+    const [polarity, setPolarity] = useState('')
 
     useEffect(() => {
-        fetch('https://api.kanye.rest')
-            .then(response => response.json())
-            .then(data => {
-                setQuote(data.quote);
-            });
+        myFunc();
     }, []);
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-          </header>
-          <div>{quote}</div>
-    </div>
-  );
+
+    async function myFunc(){
+        await getQuotes().then(
+            (response) => {
+                console.log(response.quote);
+                setQuote(response.quote);
+                getPolarity(response.quote).then(
+                    (response) => {
+                        console.log(response.result);
+                        setPolarity(response.result.polarity);
+                    });
+            });
+
+    };
+
+
+    return (
+        <div className="App">
+            <h2>
+                {quote}
+                <br />
+                {polarity}
+                </h2>
+        </div>
+    );
 }
 
 export default App;
