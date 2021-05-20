@@ -1,13 +1,16 @@
 import "./App.css";
 import getQuotes from "./components/services/GetQuotes.js";
 import getPolarity from "./components/services/GetPolarity.js";
-
-import React, { useState, useEffect, useCallback } from "react";
+import Welcome from "./components/UI/Welcome.js";
+import Footer from "./components/UI/Footer.js";
+import Main from "./components/UI/Main.js";
+import React, { useState, useEffect } from "react";
 
 function App() {
-    const [quote, setQuote] = useState({ q: "", p: 0 });
+    const [quote, setQuote] = useState({});
     const [quotes, setQuotes] = useState([]);
     const [input, setInput] = useState();
+    const [welcome, setWelcome] = useState(true);
     const [sentiments, setSentiments] = useState({
         positive: 0,
         neutral: 0,
@@ -20,11 +23,10 @@ function App() {
 
 
     useEffect(() => {
-        if (quotes.length >= input -1) {
+        if (quotes.length >= input - 1) {
             setLoading(false);
         }
         quotes.forEach((item) => sentimentSwitch(item))
-        console.log("obj", quotes)
     }, [quotes])
 
     function myFunc() {
@@ -53,7 +55,7 @@ function App() {
         if (obj.p < 0) {
             setSentiments({ positive: sentiments.positive, neutral: sentiments.neutral, negative: sentiments.negative + 1 })
         }
-        else if (obj.p == 0) {
+        else if (obj.p === 0) {
             setSentiments({ positive: sentiments.positive, neutral: sentiments.neutral + 1, negative: sentiments.negative })
         }
         else {
@@ -64,49 +66,47 @@ function App() {
 
     function onSubmit(e) {
         e.preventDefault();
-        setLoading(true);
-        setQuotes([]);
-        setQuote({ q: "", p: 0 });
-        setSentiments({
-            positive: 0,
-            neutral: 0,
-            negative: 0,
-        });
-        setInput(e.target[0].value);
-        for (var i = 0; i < e.target[0].value; i++) {
-            myFunc();
+        if (e.target[0].value) {
+            if (welcome) {
+                setWelcome(false);
+            }
+            setLoading(true);
+            setQuotes([]);
+            setQuote({ q: "", p: 0 });
             setSentiments({
-                positive: positive,
-                neutral: neutral,
-                negative: negative,
+                positive: 0,
+                neutral: 0,
+                negative: 0,
             });
-        }  
+            setInput(e.target[0].value);
+            for (var i = 0; i < e.target[0].value; i++) {
+                myFunc();
+                setSentiments({
+                    positive: positive,
+                    neutral: neutral,
+                    negative: negative,
+                });
+            }
+        }        
     }
 
 
     return (
         <div className="App">
-            {loading ? (
-                <span className="App-logo App-logo-spin">LOADING</span>
-            ) : (
-                    <div>
-                        <h3>Quote: {quote.q}</h3>
-                        <h5>Sentiment: {quote.p}</h5>
-                        <p>
-                            positive: {sentiments.positive}
-                            <br />
-                            negative: {sentiments.negative}
-                            <br />
-                            neutral: {sentiments.neutral}
-                        </p>
-                    </div>
-                )}
-
-            <form onSubmit={onSubmit}>
-                <input type="number" min="5" max="20"/>
-                <input type="submit" value="submit" />
+            {welcome ? (
+                <Welcome />
+            ) : loading ? (
+                <span className="" > LOADING</span>
+                ) : (
+                        <Main quote={quote} sentiments={sentiments} />
+                    )
+            }
+            <form className="form" onSubmit={onSubmit}>
+                <input type="number" min="5" max="20" />
+                <input className="button-submit" type="submit" value="submit" />
             </form>
-        </div>
+            <Footer />
+        </div >
     );
 }
 
