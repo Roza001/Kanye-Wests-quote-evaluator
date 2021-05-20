@@ -62,24 +62,6 @@ function App() {
 
     }
 
-    //function sentimentSwitch(obj) {
-    //    switch (obj.type) {
-    //        case "negative":
-    //            negative++;
-    //            break;
-    //        case "neutral":
-    //            console.log("neg", neutral);
-    //            neutral++;
-    //            console.log("neg2", neutral);
-    //            break;
-    //        case "positive":
-    //            positive++;
-    //            break;
-    //        default:
-    //            break;
-    //    }
-    //}
-
     function onSubmit(e) {
         e.preventDefault();
         setLoading(true);
@@ -121,7 +103,7 @@ function App() {
                 )}
 
             <form onSubmit={onSubmit}>
-                <input type="number" />
+                <input type="number" min="5" max="20"/>
                 <input type="submit" value="submit" />
             </form>
         </div>
