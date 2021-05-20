@@ -19,4 +19,12 @@ polarity aspect (which is between -1 and 1)). Counted are all positive (polarity
 quotes from the sample obtained from the first API. The application finds the most extreme quote from sample (the closest to negative or positive 1) 
 and displays it to the user along with the above counts.
 
-
+## Set up
+Open your terminal and then type
+```bash
+git clone https://github.com/Roza001/Kanye-Wests-quote-evaluator.git
+cd Kanye-Wests-quote-evaluator
+npm install 
+npm start
+```
+Make sure you have git and Node installed
