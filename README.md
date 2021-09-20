@@ -8,7 +8,7 @@
 Here is a live demo : https://roza001.github.io/Kanye-Wests-quote-evaluator/
 
 ## Web Page
-  Kanye West's Quote Evaluator web app was created as part of an interview process.
+  Kanye West's Quote Evaluator web app was created as part of an interview process. There was a time limit thus this app isn't perfect.
   
   User may enter a number between 5 and 20 and this many unique quotes will be pulled from an open REST api available online at https://kanye.rest/. 
   These quotes are shown to the user.
